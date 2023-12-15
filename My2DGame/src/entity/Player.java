@@ -18,8 +18,6 @@ public class Player extends Entity
 	public final int screenX;
 	public final int screenY;
 	int standCounter;
-	//boolean moving = false;
-	//int pixelCounter = 0;
 	
 	public Player(GamePanel gp, KeyHandler keyH)
 	{
@@ -99,6 +97,11 @@ public class Player extends Entity
 			int npcIndex = gp.cChecker.checkEntity(this, gp.npc);
 			interactNPC(npcIndex);
 			
+			// CHECK EVENT
+			gp.eHandler.checkEvent();
+			
+			gp.keyH.enterPressed = false;
+			
 			// IF COLLISION IS FALSE, PLAYER CAN MOVE
 			if(collisionOn == false)
 			{
@@ -156,8 +159,6 @@ public class Player extends Entity
 				gp.gameState = gp.dialogueState;
 				gp.npc[i].speak();
 			}
-			
-			gp.keyH.enterPressed = false;
 		}
 	}
 	
