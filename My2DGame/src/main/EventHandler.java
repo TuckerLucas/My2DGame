@@ -106,6 +106,7 @@ public class EventHandler
 			gp.playSE(2);
 			gp.ui.currentDialogue = "You drink the water.\n It replenishes your health.";
 			gp.player.life = gp.player.maxLife;
+			gp.aSetter.setMonster();
 		}
 	}
 }
