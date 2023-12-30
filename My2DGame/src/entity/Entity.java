@@ -151,6 +151,7 @@ public class Entity
 		gp.cChecker.checkObject(this, false);
 		gp.cChecker.checkEntity(this, gp.npc);
 		gp.cChecker.checkEntity(this, gp.monster);
+		gp.cChecker.checkEntity(this, gp.iTile);
 		boolean contactPlayer = gp.cChecker.checkPlayer(this);
 		
 		if(this.type == type_monster && contactPlayer == true)	// instance of
@@ -196,6 +197,7 @@ public class Entity
 				invincibleCounter = 0;
 			}
 		}
+		
 		if(shotAvailableCounter < 30)
 		{
 			shotAvailableCounter++;
@@ -221,6 +223,7 @@ public class Entity
 			gp.player.invincible = true;
 		}
 	}
+	
 	public void draw(Graphics2D g2)
 	{
 		BufferedImage image = null;
