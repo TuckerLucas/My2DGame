@@ -28,8 +28,6 @@ public class Player extends Entity
 	public final int screenY;
 	int standCounter;
 	public boolean attackCanceled = false;
-	public ArrayList<Entity> inventory = new ArrayList<>();
-	public final int maxInventorySize = 20;
 	
 	public Player(GamePanel gp, KeyHandler keyH)
 	{
@@ -56,10 +54,10 @@ public class Player extends Entity
 	
 	public void setDefaultValues()
 	{
-		worldX = gp.tileSize * 23;
-		worldY = gp.tileSize * 21;
-//		worldX = gp.tileSize * 12;
-//  		worldY = gp.tileSize * 13;
+//		worldX = gp.tileSize * 23;
+//		worldY = gp.tileSize * 21;
+		worldX = gp.tileSize * 12;
+  		worldY = gp.tileSize * 11;
 		speed = 4;
 		direction = "down";
 		
@@ -74,7 +72,7 @@ public class Player extends Entity
 		dexterity = 1; // The more dexterity the less damage recieved
 		exp = 0;
 		nextLevelExp = 5;
-		coin = 0;
+		coin = 500;
 		currentWeapon = new OBJ_Sword_Normal(gp);
 		currentShield = new OBJ_Shield_Wood(gp);
 		projectile = new OBJ_Fireball(gp);
@@ -494,7 +492,7 @@ public class Player extends Entity
 	
 	public void selectItem()
 	{
-		int itemIndex = gp.ui.getItemIndexOnSlot();
+		int itemIndex = gp.ui.getItemIndexOnSlot(gp.ui.playerSlotCol, gp.ui.playerSlotRow);
 		
 		if(itemIndex < inventory.size())
 		{
