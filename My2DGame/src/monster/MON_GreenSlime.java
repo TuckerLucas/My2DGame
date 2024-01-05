@@ -39,6 +39,27 @@ public class MON_GreenSlime extends Entity
 		getImage();
 	}
 	
+	public void update()
+	{
+		super.update();
+		
+		int xDistance = Math.abs(worldX - gp.player.worldX);
+		int yDistance = Math.abs(worldY - gp.player.worldY);
+		
+		int tileDistance = (xDistance + yDistance)/gp.tileSize;
+		
+		// Randomize probability monstr gets agro
+		if(onPath == false && tileDistance < 5)
+		{
+			int i = new Random().nextInt(100)+1;
+			
+			if(i > 50)
+			{
+				onPath = true;
+			}
+		}
+	}
+	
 	public void getImage()
 	{
 		up1 = setup("/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
@@ -53,48 +74,62 @@ public class MON_GreenSlime extends Entity
 	
 	public void setAction()
 	{
-		actionLockCounter++;
-		
-		if(actionLockCounter == 120) // CHANGE TIMING (2 seconds)
-		{
-			Random random = new Random();
+		if(onPath == true)
+		{	
+			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
+			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;;
 			
-			int i = random.nextInt(100) + 1; // pick a number from 1 to 100 (why so much? just put 4 right?)
+			searchPath(goalCol, goalRow);
 			
-			if(i <= 25)
-			{
-				direction = "up";
-			}
-			if(i > 25 && i <= 50)
-			{
-				direction = "down";
-			}
-			if(i > 50 && i <= 75)
-			{
-				direction = "left";
-			}
-			if(i > 75 && i <= 100)
-			{
-				direction = "right";
-			}
 			
-			actionLockCounter = 0;
+			
+			int i = new Random().nextInt(200)+1;
+			
+			if(i > 197 && projectile.alive == false && shotAvailableCounter == 30)
+			{
+				projectile.set(worldX, worldY, direction, true, this);
+				gp.projectileList.add(projectile);
+				shotAvailableCounter = 0;
+			}
 		}
-		
-		int i = new Random().nextInt(100)+1;
-		
-		if(i > 99 && projectile.alive == false && shotAvailableCounter == 30)
+		else 
 		{
-			projectile.set(worldX, worldY, direction, true, this);
-			gp.projectileList.add(projectile);
-			shotAvailableCounter = 0;
+			actionLockCounter++;
+			
+			if(actionLockCounter == 120) // CHANGE TIMING (2 seconds)
+			{
+				Random random = new Random();
+				
+				int i = random.nextInt(100) + 1; // pick a number from 1 to 100 (why so much? just put 4 right?)
+				
+				if(i <= 25)
+				{
+					direction = "up";
+				}
+				if(i > 25 && i <= 50)
+				{
+					direction = "down";
+				}
+				if(i > 50 && i <= 75)
+				{
+					direction = "left";
+				}
+				if(i > 75 && i <= 100)
+				{
+					direction = "right";
+				}
+				
+				actionLockCounter = 0;
+			}
 		}
 	}
 	
 	public void damageReaction()
 	{
 		actionLockCounter = 0;
-		direction = gp.player.direction;
+//		direction = gp.player.direction;
+		
+		onPath = true;
 	}
 	
 	public void checkDrop()

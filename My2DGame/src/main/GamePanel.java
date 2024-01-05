@@ -16,6 +16,7 @@ import java.util.Comparator;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 
+import ai.PathFinder;
 import entity.Entity;
 import entity.Player;
 import tile.TileManager;
@@ -37,7 +38,7 @@ public class GamePanel extends JPanel implements Runnable
 	public final int maxWorldCol = 50;
 	public final int maxWorldRow = 50;
 	public final int maxMap = 10;
-	public int currentMap = 1;
+	public int currentMap = 0;
 	
 	// FOR FULL SCREEN
 	int screenWidth2 = screenWidth;
@@ -50,7 +51,7 @@ public class GamePanel extends JPanel implements Runnable
 	int FPS = 60;
 	
 	// SYSTEM
-	TileManager tileM = new TileManager(this);
+	public TileManager tileM = new TileManager(this);
 	public KeyHandler keyH = new KeyHandler(this);
 	Sound music = new Sound();
 	Sound se = new Sound();
@@ -59,6 +60,7 @@ public class GamePanel extends JPanel implements Runnable
 	public UI ui = new UI(this);
 	public EventHandler eHandler = new EventHandler(this);
 	Config config = new Config(this);
+	public PathFinder pFinder = new PathFinder(this);
 	Thread gameThread;
 	
 	// ENTITY AND OBJECT

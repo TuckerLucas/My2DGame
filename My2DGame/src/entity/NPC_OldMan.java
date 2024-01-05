@@ -12,7 +12,7 @@ public class NPC_OldMan extends Entity
 		super(gp);
 		
 		direction = "down";
-		speed = 1;
+		speed = 2;
 		
 		solidArea = new Rectangle();
 		solidArea.x = 8;
@@ -48,32 +48,45 @@ public class NPC_OldMan extends Entity
 	
 	public void setAction()
 	{
-		actionLockCounter++;
-		
-		if(actionLockCounter == 120) // CHANGE TIMING (2 seconds)
+		if(onPath == true)
 		{
-			Random random = new Random();
+//			int goalCol = 12;
+//			int goalRow = 9;
 			
-			int i = random.nextInt(100) + 1; // pick a number from 1 to 100 (why so much? just put 4 right?)
+			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
+			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;;
 			
-			if(i <= 25)
-			{
-				direction = "up";
-			}
-			if(i > 25 && i <= 50)
-			{
-				direction = "down";
-			}
-			if(i > 50 && i <= 75)
-			{
-				direction = "left";
-			}
-			if(i > 75 && i <= 100)
-			{
-				direction = "right";
-			}
+			searchPath(goalCol, goalRow);
+		}
+		else 
+		{
+			actionLockCounter++;
 			
-			actionLockCounter = 0;
+			if(actionLockCounter == 120) // CHANGE TIMING (2 seconds)
+			{
+				Random random = new Random();
+				
+				int i = random.nextInt(100) + 1; // pick a number from 1 to 100 (why so much? just put 4 right?)
+				
+				if(i <= 25)
+				{
+					direction = "up";
+				}
+				if(i > 25 && i <= 50)
+				{
+					direction = "down";
+				}
+				if(i > 50 && i <= 75)
+				{
+					direction = "left";
+				}
+				if(i > 75 && i <= 100)
+				{
+					direction = "right";
+				}
+				
+				actionLockCounter = 0;
+			}
 		}
 	}
 	
@@ -82,5 +95,7 @@ public class NPC_OldMan extends Entity
 		// Do this character specific stuff
 		
 		super.speak();
+		
+		onPath = true;
 	}
 }
