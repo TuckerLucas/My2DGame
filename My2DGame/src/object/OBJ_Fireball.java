@@ -20,6 +20,7 @@ public class OBJ_Fireball extends Projectile
 		maxLife = 80;
 		life = maxLife;
 		attack = 2;
+		knockBackPower = 0; // not really needed as its already defined as 0 in entity class
 		useCost = 1;
 		alive = false;
 		getImage();
