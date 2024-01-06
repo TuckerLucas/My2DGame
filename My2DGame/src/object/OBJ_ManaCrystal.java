@@ -20,10 +20,12 @@ public class OBJ_ManaCrystal extends Entity
 		image2 = setup("/objects/manacrystal_blank", gp.tileSize, gp.tileSize);
 	}
 	
-	public void use(Entity entity)
+	public boolean use(Entity entity)
 	{
 		gp.playSE(2);
 		gp.ui.addMessage(name + " + " + value);
 		entity.mana += value;
+		
+		return true;
 	}
 }
