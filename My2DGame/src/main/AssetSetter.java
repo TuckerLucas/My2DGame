@@ -13,6 +13,7 @@ import object.OBJ_Lantern;
 import object.OBJ_ManaCrystal;
 import object.OBJ_Potion_Red;
 import object.OBJ_Shield_Blue;
+import object.OBJ_Tent;
 import tile_interactive.IT_DryTree;
 
 public class AssetSetter 
@@ -39,6 +40,11 @@ public class AssetSetter
 		gp.obj[mapNum][i].worldY = gp.tileSize * 20;
 		i++;
 		
+		gp.obj[mapNum][i] = new OBJ_Tent(gp);
+		gp.obj[mapNum][i].worldX = gp.tileSize * 29;
+		gp.obj[mapNum][i].worldY = gp.tileSize * 20;
+		i++;
+		
 		gp.obj[mapNum][i] = new OBJ_Door(gp);
 		gp.obj[mapNum][i].worldX = gp.tileSize * 14;
 		gp.obj[mapNum][i].worldY = gp.tileSize * 28;
@@ -51,16 +57,6 @@ public class AssetSetter
 		
 		gp.obj[mapNum][i] = new OBJ_Chest(gp, new OBJ_Key(gp));
 		gp.obj[mapNum][i].worldX = gp.tileSize * 18;
-		gp.obj[mapNum][i].worldY = gp.tileSize * 20;
-		i++;
-		
-		gp.obj[mapNum][i] = new OBJ_Potion_Red(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 21;
-		gp.obj[mapNum][i].worldY = gp.tileSize * 20;
-		i++;
-		
-		gp.obj[mapNum][i] = new OBJ_Potion_Red(gp);
-		gp.obj[mapNum][i].worldX = gp.tileSize * 20;
 		gp.obj[mapNum][i].worldY = gp.tileSize * 20;
 		i++;
 		
