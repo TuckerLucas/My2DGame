@@ -23,8 +23,6 @@ public class UI
 	Font maruMonica, purisaB;
 	BufferedImage heart_full, heart_half, heart_blank, crystal_full, crystal_blank, coin;
 	public boolean messageOn = false;
-//	public String message = "";
-//	int messageCounter = 0;
 	ArrayList<String> message = new ArrayList<>();
 	ArrayList<Integer> messageCounter = new ArrayList<>();
 	public boolean gameFinished = false;
@@ -221,7 +219,6 @@ public class UI
 		}
 	}
 	
-	
 	public void drawTitleScreen()
 	{
 		// BACKGROUND COLOR
@@ -281,7 +278,6 @@ public class UI
 		}
 	}
 	
-	
 	public void drawPauseScreen()
 	{
 		g2.setFont(g2.getFont().deriveFont(Font.PLAIN, 80F));
@@ -291,7 +287,6 @@ public class UI
 		
 		g2.drawString(text, x, y);
 	}
-	
 	
 	public void drawDialogueScreen()
 	{
@@ -312,8 +307,7 @@ public class UI
 			y += 40;
 		}
 	}
-	
-	
+
 	public void drawCharacterScreen()
 	{
 		// CREATE A FRAME
@@ -418,7 +412,6 @@ public class UI
 		g2.drawImage(gp.player.currentShield.down1, tailX - gp.tileSize, textY - 24, null);
 	}
 	
-	
 	public void drawInventory(Entity entity, boolean cursor)
 	{
 		int frameX = 0;
@@ -462,7 +455,8 @@ public class UI
 		{
 			// EQUIP CURSOR
 			if(entity.inventory.get(i) == entity.currentWeapon ||
-					entity.inventory.get(i) == entity.currentShield)
+					entity.inventory.get(i) == entity.currentShield ||
+					entity.inventory.get(i) == entity.currentLight)
 			{
 				g2.setColor(new Color(240, 190, 90));
 				g2.fillRoundRect(slotX, slotY, gp.tileSize, gp.tileSize, 10, 10);
@@ -538,7 +532,6 @@ public class UI
 		}
 	}
 	
-	
 	public void drawGameOverScreen()
 	{
 		g2.setColor(new Color(0, 0, 0, 150));
@@ -583,7 +576,6 @@ public class UI
 		}
 	}
 	
-	
 	public void drawOptionsScreen()
 	{
 		g2.setColor(Color.white);
@@ -607,7 +599,6 @@ public class UI
 		
 		gp.keyH.enterPressed = false;
 	}
-	
 	
 	public void options_top(int frameX, int frameY)
 	{
@@ -733,7 +724,6 @@ public class UI
 		gp.config.saveConfig();
 	}
 	
-	
 	public void options_fullScreenNotification(int frameX, int frameY)
 	{
 		int textX = frameX + gp.tileSize;
@@ -761,7 +751,6 @@ public class UI
 			}
 		}
 	}
-	
 	
 	public void options_control(int frameX, int frameY)
 	{
@@ -808,7 +797,6 @@ public class UI
 			}
 		}
 	}
-	
 	
 	public void options_endGameConfirmation(int frameX, int frameY)
 	{
@@ -1107,7 +1095,6 @@ public class UI
 		return itemIndex;
 	}
 	
-	
 	public void drawSubWindow(int x, int y, int width, int height)
 	{
 		Color c = new Color(0, 0, 0, 210);
@@ -1120,7 +1107,6 @@ public class UI
 		g2.drawRoundRect(x + 5, y + 5, width - 10, height - 10, 25, 25);
 	}
 	
-	
 	public int getXForCenteredText(String text)
 	{
 		int length = (int)g2.getFontMetrics().getStringBounds(text, g2).getWidth();
@@ -1128,7 +1114,6 @@ public class UI
 		
 		return x;
 	}
-	
 	
 	public int getXForAlignToRightText(String text, int tailX)
 	{
