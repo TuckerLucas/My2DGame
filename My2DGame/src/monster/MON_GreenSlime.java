@@ -40,27 +40,6 @@ public class MON_GreenSlime extends Entity
 		getImage();
 	}
 	
-	public void update()
-	{
-		super.update();
-		
-		int xDistance = Math.abs(worldX - gp.player.worldX);
-		int yDistance = Math.abs(worldY - gp.player.worldY);
-		
-		int tileDistance = (xDistance + yDistance)/gp.tileSize;
-		
-		// Randomize probability monstr gets agro
-		if(onPath == false && tileDistance < 5)
-		{
-			int i = new Random().nextInt(100)+1;
-			
-			if(i > 50)
-			{
-				onPath = true;
-			}
-		}
-	}
-	
 	public void getImage()
 	{
 		up1 = setup("/monster/greenslime_down_1", gp.tileSize, gp.tileSize);
@@ -76,60 +55,23 @@ public class MON_GreenSlime extends Entity
 	public void setAction()
 	{
 		if(onPath == true)
-		{	
-			int goalCol = (gp.player.worldX + gp.player.solidArea.x)/gp.tileSize;
-			int goalRow = (gp.player.worldY + gp.player.solidArea.y)/gp.tileSize;;
-			
-			searchPath(goalCol, goalRow);
-			
-			int i = new Random().nextInt(200)+1;
-			
-			if(i > 197 && projectile.alive == false && shotAvailableCounter == 30)
-			{
-				projectile.set(worldX, worldY, direction, true, this);
-
-				// CHECK VACANCY
-				for(int ii = 0; ii < gp.projectile[1].length; ii++)
-				{
-					if(gp.projectile[gp.currentMap][ii] == null)
-					{
-						gp.projectile[gp.currentMap][ii] = projectile;
-						break;
-					}
-				}
-				
-				shotAvailableCounter = 0;
-			}
-		}
-		else 
 		{
-			actionLockCounter++;
+			// Check if it stops chasing
+			checkStopChasingOrNot(gp.player, 15, 100);
 			
-			if(actionLockCounter == 120) // CHANGE TIMING (2 seconds)
-			{
-				Random random = new Random();
-				
-				int i = random.nextInt(100) + 1; // pick a number from 1 to 100 (why so much? just put 4 right?)
-				
-				if(i <= 25)
-				{
-					direction = "up";
-				}
-				if(i > 25 && i <= 50)
-				{
-					direction = "down";
-				}
-				if(i > 50 && i <= 75)
-				{
-					direction = "left";
-				}
-				if(i > 75 && i <= 100)
-				{
-					direction = "right";
-				}
-				
-				actionLockCounter = 0;
-			}
+			// Search direction to go
+			searchPath(getGoalCol(gp.player), getGoalRow(gp.player));
+			
+			// Check if it shoots a projectile
+			checkShootOrNot(200, 30);
+		}
+		else
+		{
+			// Check if it starts chasing
+			checkStartChasingOrNot(gp.player, 5, 100);
+			
+			// Get a random direction
+			getRandomDirection();
 		}
 	}
 	

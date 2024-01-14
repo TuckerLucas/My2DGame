@@ -49,6 +49,8 @@ public class Map extends TileManager
 					row++;
 				}
 			}
+			
+			g2.dispose();
 		}
 	}
 	
@@ -87,10 +89,8 @@ public class Map extends TileManager
 			int height = 200;
 			int x = gp.screenWidth - width - 50;
 			int y = 50;
-			
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 0.8f));
 			g2.drawImage(worldMap[gp.currentMap], x, y, width, height, null);
-			
 			
 			// Draw player
 			double scale = (double)(gp.tileSize * gp.maxWorldCol)/width;
@@ -98,7 +98,6 @@ public class Map extends TileManager
 			int playerY = (int)(y + gp.player.worldY/scale);
 			int playerSize = (int)(gp.tileSize/3);
 			g2.drawImage(gp.player.down1, playerX - 6, playerY - 6, playerSize, playerSize, null);
-			
 			g2.setComposite(AlphaComposite.getInstance(AlphaComposite.SRC_OVER, 1f));
 		}
 	}
